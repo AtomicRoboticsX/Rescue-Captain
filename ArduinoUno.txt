@@ -1,0 +1,91 @@
+#include <HardwareSerial.h>
+
+double Dato;
+int l298n_1_ena=10;
+int l298n_1_in1=3;
+int l298n_1_in2=2;
+int l298n_1_in3=5;
+int l298n_1_in4=6;
+int l298n_1_enb=9;
+HardwareSerial &bt_serial=Serial;
+
+void setup()
+{
+  	pinMode(10, OUTPUT);
+	pinMode(3, OUTPUT);
+	pinMode(2, OUTPUT);
+	pinMode(5, OUTPUT);
+	pinMode(6, OUTPUT);
+	pinMode(9, OUTPUT);
+	pinMode(13, OUTPUT);
+
+	Serial.begin(9600);
+	Serial.flush();
+	while(Serial.available()>0)Serial.read();
+
+bt_serial.begin(9600);
+
+}
+
+
+void loop()
+{
+
+  	if ((bt_serial.available()>0)) {
+  		Dato = bt_serial.read();
+  		bt_serial.println(Dato);
+  		if ((Dato == 65)) {
+  			bt_serial.println(Dato);
+  			digitalWrite(l298n_1_in1,LOW);
+  			digitalWrite(l298n_1_in2,HIGH);
+  			analogWrite(l298n_1_ena,(uint16_t)(255));
+  			digitalWrite(l298n_1_in3,LOW);
+  			digitalWrite(l298n_1_in4,HIGH);
+  			analogWrite(l298n_1_enb,(255));
+  		}
+  		else if ((Dato == 82)) {
+  			bt_serial.println(Dato);
+  			digitalWrite(l298n_1_in1,HIGH);
+  			digitalWrite(l298n_1_in2,LOW);
+  			analogWrite(l298n_1_ena,(uint16_t)(255));
+  			digitalWrite(l298n_1_in3,HIGH);
+  			digitalWrite(l298n_1_in4,LOW);
+  			analogWrite(l298n_1_enb,(255));
+  		}
+  		else if ((Dato == 73)) {
+  			bt_serial.println(Dato);
+  			digitalWrite(l298n_1_in1,LOW);
+  			digitalWrite(l298n_1_in2,HIGH);
+  			analogWrite(l298n_1_ena,(uint16_t)(255));
+  			digitalWrite(l298n_1_in3,HIGH);
+  			digitalWrite(l298n_1_in4,LOW);
+  			analogWrite(l298n_1_enb,(255));
+  		}
+  		else if ((Dato == 68)) {
+  			bt_serial.println(Dato);
+  			digitalWrite(l298n_1_in1,HIGH);
+  			digitalWrite(l298n_1_in2,LOW);
+  			analogWrite(l298n_1_ena,(uint16_t)(255));
+  			digitalWrite(l298n_1_in3,LOW);
+  			digitalWrite(l298n_1_in4,HIGH);
+  			analogWrite(l298n_1_enb,(255));
+  		}
+  		else if ((Dato == 83)) {
+  			bt_serial.println(Dato);
+  			digitalWrite(l298n_1_in1,LOW);
+  			digitalWrite(l298n_1_in2,HIGH);
+  			analogWrite(l298n_1_ena,(uint16_t)(0));
+  			digitalWrite(l298n_1_in3,LOW);
+  			digitalWrite(l298n_1_in4,HIGH);
+  			analogWrite(l298n_1_enb,(0));
+  		}
+  		else if ((Dato == 75)) {
+  			digitalWrite(13,HIGH);
+  		}
+  		else if ((Dato == 76)) {
+  			digitalWrite(13,LOW);
+  		}
+
+  	}
+
+}
